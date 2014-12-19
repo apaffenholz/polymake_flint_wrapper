@@ -8,6 +8,7 @@ This extension depends on the flint library. We wrap Hermite normal form and the
 === Installation ===
 
 To install this extension in polymake do the following:
+
 (1) install flint (note that the released versions of flint are too old, see above)
 
 (2) start polymake
