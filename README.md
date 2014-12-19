@@ -13,6 +13,6 @@ To install this extension in polymake do the following:
 
 (2) start polymake
 
-(3) execute import_extension("<path_to_extension>","--with_flint=<path_to_flint_installation"); at the polymake prompt
+(3) execute import_extension("\<path_to_extension\>","--with_flint=\<path_to_flint_installation\>"); at the polymake prompt
 
 Now you should be set up to use the extension.
