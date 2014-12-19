@@ -19,8 +19,10 @@
 #include <polymake/client.h>
 #include <polymake/Matrix.h>
 #include <polymake/Integer.h>
+#include <polymake/Rational.h>
 #include <polymake/common/FlintMatrix.h>
 #include "flint/fmpz.h"
+#include "flint/fmpq.h"
 #include "flint/fmpz_mat.h"
 
 
@@ -70,7 +72,27 @@ namespace polymake {
       
       return FlintMatrix(H);
     }
-    
+
+
+    const FlintMatrix FlintMatrix::lll_storjohann(const Rational delta , const Rational eta) {
+
+      fmpq_t d;
+      fmpq_t e;
+      fmpq_init(d);
+      fmpq_init(e);
+
+      fmpq_set_si(d,convert_to<signed long>(denominator(delta)),convert_to<long>(numerator(delta)));
+      fmpq_set_si(d,convert_to<signed long>(denominator(eta)),convert_to<long>(numerator(eta)));
+
+      fmpz_mat_t H;
+      fmpz_mat_init_set(H, M);
+      fmpz_mat_lll_storjohann(H, d, e);
+
+      fmpq_clear(d);
+      fmpq_clear(e);
+      
+      return FlintMatrix(H);
+    }
     
   }
   

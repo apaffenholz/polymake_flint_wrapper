@@ -46,6 +46,8 @@ namespace polymake {
       const Matrix<Integer> get_matrix() const;
       const FlintMatrix hermite_normal_form() const;
 
+      const FlintMatrix lll_storjohann(const Rational delta , const Rational eta);
+
     };
     
   }

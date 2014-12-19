@@ -18,6 +18,8 @@
 #include <polymake/client.h>
 #include <polymake/Matrix.h>
 #include <polymake/Integer.h>
+#include <polymake/Rational.h>
+
 #include <polymake/common/flint_functions.h>
 #include <polymake/common/FlintMatrix.h>
 
@@ -32,7 +34,22 @@ namespace polymake {
      
       return FM.hermite_normal_form().get_matrix();
     }
-    
-  }
+   
 
+    Matrix<Integer> LLL(const Matrix<Integer> & M, Rational delta, Rational eta ) {
+
+
+      FlintMatrix FM(M);
+
+      // meaning of eta is unclear even after consulting the paper...
+      FlintMatrix LLL = FM.lll_storjohann(delta,eta);
+
+      return LLL.get_matrix();
+    }
+
+    UserFunction4perl(" ", &HermiteNormalForm, "HerminteNormalForm( $ )");
+
+    UserFunction4perl(" ", &LLL, "LLL( $; $=1/4, $=1 )");
+
+  }
 }
