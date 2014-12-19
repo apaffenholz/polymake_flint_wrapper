@@ -9,7 +9,9 @@ This extension depends on the flint library. We wrap Hermite normal form and the
 
 To install this extension in polymake do the following:
 (1) install flint (note that the released versions of flint are too old, see above)
+
 (2) start polymake
+
 (3) execute import_extension("<path_to_extension>","--with_flint=<path_to_flint_installation"); at the polymake prompt
 
 Now you should be set up to use the extension.
