@@ -1,0 +1,9 @@
+URI http://polymake.org/polytopes/paffenholz/data/polymake/extensions/FlintWrapper#0.1
+
+NAME FlintWrapper
+
+CREDIT flint_wrapper
+ provides a matrix wrapper to flint matrices. For flint see http://flintlib.org/index.html
+ (c) 2014 Silke Horn, Andreas Paffenholz, TU Darmstadt, www.mathematik.tu-darmstadt.de/~paffenholz
+
+
