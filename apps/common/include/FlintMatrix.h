@@ -44,7 +44,9 @@ namespace polymake {
       FlintMatrix(const Matrix<Integer> & A);
       
       const Matrix<Integer> get_matrix() const;
+
       const FlintMatrix hermite_normal_form() const;
+      const FlintMatrix smith_normal_form() const;
 
       const FlintMatrix lll_storjohann(const Rational delta , const Rational eta);
 

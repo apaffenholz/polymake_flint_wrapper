@@ -34,6 +34,14 @@ namespace polymake {
      
       return FM.hermite_normal_form().get_matrix();
     }
+
+    Matrix<Integer> SmithNormalForm(const Matrix<Integer> & M ) {
+
+      FlintMatrix FM(M);
+     
+      return FM.smith_normal_form().get_matrix();
+    }
+
    
 
     Matrix<Integer> LLL(const Matrix<Integer> & M, Rational delta, Rational eta ) {
@@ -54,6 +62,12 @@ namespace polymake {
     							"# @param Matrix<Integer> A\n"
     							"# @return Matrix<Integer>",
     							&HermiteNormalForm, "hermite_normal_form( $ )");
+
+    UserFunction4perl(	"# @category Linear Algebra\n"
+    							"# Computes the unique __Smith normal form__ of //A//."
+    							"# @param Matrix<Integer> A\n"
+    							"# @return Matrix<Integer>",
+    							&SmithNormalForm, "smith_normal_form_flint( $ )");
 
 
     UserFunction4perl(	"# @category Linear Algebra\n"
