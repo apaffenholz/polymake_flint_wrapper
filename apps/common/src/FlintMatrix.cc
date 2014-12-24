@@ -43,9 +43,9 @@ namespace polymake {
       
       fmpz_mat_init(M, rows, cols);
       
-      for (long i = 0; i < rows; ++i) 
-	for (long j = 0; j < cols; ++j) 
-	  fmpz_set_ui(fmpz_mat_entry(M,i,j), convert_to<long>(A(i,j)));
+      for (long i = 0; i < rows; ++i)
+         for (long j = 0; j < cols; ++j)
+           fmpz_set_mpz(fmpz_mat_entry(M,i,j), A(i,j).get_rep());
       
     }
     
@@ -54,9 +54,9 @@ namespace polymake {
       Matrix<Integer> A(rows,cols);
       
       for (long i=0; i < rows; ++i) {
-	for (long j=0; j < cols; ++j) {
-	  A(i,j) = convert_to<Integer>(*fmpz_mat_entry(M,i,j));
-	}
+         for (long j=0; j < cols; ++j) {
+            A(i,j) = convert_to<Integer>(*fmpz_mat_entry(M,i,j));
+         }
       }
       
       return A;
@@ -73,6 +73,17 @@ namespace polymake {
       return FlintMatrix(H);
     }
 
+    const FlintMatrix FlintMatrix::smith_normal_form() const {
+      
+      fmpz_mat_t S;
+      fmpz_mat_init(S, rows, cols);
+      
+      fmpz_mat_snf(S,M);
+      
+      return FlintMatrix(S);
+    }
+
+
 
     const FlintMatrix FlintMatrix::lll_storjohann(const Rational delta , const Rational eta) {
 
@@ -81,6 +92,7 @@ namespace polymake {
       fmpq_init(d);
       fmpq_init(e);
 
+      // TODO type conversion
       fmpq_set_si(d,convert_to<signed long>(denominator(delta)),convert_to<long>(numerator(delta)));
       fmpq_set_si(d,convert_to<signed long>(denominator(eta)),convert_to<long>(numerator(eta)));
 
