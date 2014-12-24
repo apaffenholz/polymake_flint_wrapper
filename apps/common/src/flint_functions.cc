@@ -47,9 +47,24 @@ namespace polymake {
       return LLL.get_matrix();
     }
 
-    UserFunction4perl(" ", &HermiteNormalForm, "HerminteNormalForm( $ )");
+	UserFunction4perl("", &test_flint_conversion, "test_flint_conversion( $ )");
 
-    UserFunction4perl(" ", &LLL, "LLL( $; $=1/4, $=1 )");
+    UserFunction4perl(	"# @category Linear Algebra\n"
+    							"# Computes the unique (row) __Hermite normal form__ of //A//."
+    							"# @param Matrix<Integer> A\n"
+    							"# @return Matrix<Integer>",
+    							&HermiteNormalForm, "hermite_normal_form( $ )");
+
+
+    UserFunction4perl(	"# @category Linear Algebra\n"
+    							"# Takes a basis of a lattice (as the rows of //A//) and returns an (//delta//, //eta//)-reduced basis of the same lattice."
+    							"#"
+    							"# Uses a modified version of the LLL-algorithm, which has better complexity in terms of the lattice dimension, introduced by Storjohann. See"
+    							"\tA. Storjohann Faster Algorithms for Integer Lattice Basis Reduction. Technical Report 249. Zurich, Switzerland: Department Informatik, ETH. July 30, 1996."
+    							"# @param Matrix<Integer> A\n"
+    							"# @param Rational delta optional, default: 1/4 TODO: WTF?\n"
+    							"# @param Rational eta optional, default: 1 TODO: WTF?\n"
+    							"# @return Matrix<Integer>", &LLL, "lll( $; $=1/4, $=1 )");
 
   }
 }
