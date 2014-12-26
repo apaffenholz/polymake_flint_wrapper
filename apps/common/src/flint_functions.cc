@@ -55,8 +55,6 @@ namespace polymake {
       return LLL.get_matrix();
     }
 
-	UserFunction4perl("", &test_flint_conversion, "test_flint_conversion( $ )");
-
     UserFunction4perl(	"# @category Linear Algebra\n"
     							"# Computes the unique (row) __Hermite normal form__ of //A//."
     							"# @param Matrix<Integer> A\n"
