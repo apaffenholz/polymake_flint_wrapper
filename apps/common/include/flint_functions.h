@@ -27,8 +27,8 @@ namespace polymake {
 
   namespace common {
 
-    Matrix<Integer> HermiteNormalForm(const Matrix<Integer> & M );
-    Matrix<Integer> SmithNormalForm(const Matrix<Integer> & M );
+    Matrix<Integer> Flint_HermiteNormalForm(const Matrix<Integer> & M );
+    Matrix<Integer> Flint_SmithNormalForm(const Matrix<Integer> & M );
     
   }
 

@@ -28,14 +28,14 @@ namespace polymake {
 
   namespace common {
 
-    Matrix<Integer> HermiteNormalForm(const Matrix<Integer> & M ) {
+    Matrix<Integer> Flint_HermiteNormalForm(const Matrix<Integer> & M ) {
 
       FlintMatrix FM(M);
      
       return FM.hermite_normal_form().get_matrix();
     }
 
-    Matrix<Integer> SmithNormalForm(const Matrix<Integer> & M ) {
+    Matrix<Integer> Flint_SmithNormalForm(const Matrix<Integer> & M ) {
 
       FlintMatrix FM(M);
      
@@ -44,7 +44,7 @@ namespace polymake {
 
    
 
-    Matrix<Integer> LLL(const Matrix<Integer> & M, Rational delta, Rational eta ) {
+    Matrix<Integer> Flint_LLL(const Matrix<Integer> & M, Rational delta, Rational eta ) {
 
 
       FlintMatrix FM(M);
@@ -59,13 +59,14 @@ namespace polymake {
     							"# Computes the unique (row) __Hermite normal form__ of //A//."
     							"# @param Matrix<Integer> A\n"
     							"# @return Matrix<Integer>",
-    							&HermiteNormalForm, "hermite_normal_form( $ )");
+    							&Flint_HermiteNormalForm, "flint_hermite_normal_form( $ )");
 
     UserFunction4perl(	"# @category Linear Algebra\n"
     							"# Computes the unique __Smith normal form__ of //A//."
+			                                "# Note that the flint function __does not__ return the companion matrices."
     							"# @param Matrix<Integer> A\n"
     							"# @return Matrix<Integer>",
-    							&SmithNormalForm, "smith_normal_form_flint( $ )");
+    							&Flint_SmithNormalForm, "flint_smith_normal_form_flint( $ )");
 
 
     UserFunction4perl(	"# @category Linear Algebra\n"
@@ -76,7 +77,7 @@ namespace polymake {
     							"# @param Matrix<Integer> A\n"
     							"# @param Rational delta optional, default: 1/4 TODO: WTF?\n"
     							"# @param Rational eta optional, default: 1 TODO: WTF?\n"
-    							"# @return Matrix<Integer>", &LLL, "lll( $; $=1/4, $=1 )");
+    							"# @return Matrix<Integer>", &Flint_LLL, "flint_lll( $; $=1/4, $=1 )");
 
   }
 }
