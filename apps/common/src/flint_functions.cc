@@ -25,59 +25,61 @@
 
 
 namespace polymake { 
-
   namespace common {
+    namespace flint {
+      
+      Matrix<Integer> HermiteNormalForm(const Matrix<Integer> & M ) {
+	
+	FlintMatrix FM(M);
+	
+	return FM.hermite_normal_form().get_matrix();
+      }
 
-    Matrix<Integer> Flint_HermiteNormalForm(const Matrix<Integer> & M ) {
-
-      FlintMatrix FM(M);
-     
-      return FM.hermite_normal_form().get_matrix();
+      
+      Matrix<Integer> SmithNormalForm(const Matrix<Integer> & M ) {
+	
+	FlintMatrix FM(M);
+	
+	return FM.smith_normal_form().get_matrix();
+      }
+      
+      
+      
+      Matrix<Integer> LLL(const Matrix<Integer> & M, Rational delta, Rational eta ) {
+	
+	FlintMatrix FM(M);
+	
+	// meaning of eta is unclear even after consulting the paper...
+	FlintMatrix LLL = FM.lll_storjohann(delta,eta);
+	
+	return LLL.get_matrix();
+      }
     }
-
-    Matrix<Integer> Flint_SmithNormalForm(const Matrix<Integer> & M ) {
-
-      FlintMatrix FM(M);
-     
-      return FM.smith_normal_form().get_matrix();
-    }
-
-   
-
-    Matrix<Integer> Flint_LLL(const Matrix<Integer> & M, Rational delta, Rational eta ) {
-
-
-      FlintMatrix FM(M);
-
-      // meaning of eta is unclear even after consulting the paper...
-      FlintMatrix LLL = FM.lll_storjohann(delta,eta);
-
-      return LLL.get_matrix();
-    }
-
-    UserFunction4perl(	"# @category Linear Algebra\n"
-    							"# Computes the unique (row) __Hermite normal form__ of //A//."
-    							"# @param Matrix<Integer> A\n"
-    							"# @return Matrix<Integer>",
-    							&Flint_HermiteNormalForm, "flint_hermite_normal_form( $ )");
-
-    UserFunction4perl(	"# @category Linear Algebra\n"
-    							"# Computes the unique __Smith normal form__ of //A//."
-			                                "# Note that the flint function __does not__ return the companion matrices."
-    							"# @param Matrix<Integer> A\n"
-    							"# @return Matrix<Integer>",
-    							&Flint_SmithNormalForm, "flint_smith_normal_form_flint( $ )");
-
-
-    UserFunction4perl(	"# @category Linear Algebra\n"
-    							"# Takes a basis of a lattice (as the rows of //A//) and returns an (//delta//, //eta//)-reduced basis of the same lattice."
-    							"#"
-    							"# Uses a modified version of the LLL-algorithm, which has better complexity in terms of the lattice dimension, introduced by Storjohann. See"
-    							"\tA. Storjohann Faster Algorithms for Integer Lattice Basis Reduction. Technical Report 249. Zurich, Switzerland: Department Informatik, ETH. July 30, 1996."
-    							"# @param Matrix<Integer> A\n"
-    							"# @param Rational delta optional, default: 1/4 TODO: WTF?\n"
-    							"# @param Rational eta optional, default: 1 TODO: WTF?\n"
-    							"# @return Matrix<Integer>", &Flint_LLL, "flint_lll( $; $=1/4, $=1 )");
-
+      
+      UserFunction4perl(	"# @category Linear Algebra\n"
+				"# Computes the unique (row) __Hermite normal form__ of //A//."
+				"# @param Matrix<Integer> A\n"
+				"# @return Matrix<Integer>",
+				&flint::HermiteNormalForm, "hermite_normal_form_flint( $ )");
+      
+      UserFunction4perl(	"# @category Linear Algebra\n"
+				"# Computes the unique __Smith normal form__ of //A//."
+				"# Note that the flint function __does not__ return the companion matrices."
+				"# @param Matrix<Integer> A\n"
+				"# @return Matrix<Integer>",
+				&flint::SmithNormalForm, "smith_normal_form_flint( $ )");
+      
+      
+      UserFunction4perl(	"# @category Linear Algebra\n"
+				"# Takes a basis of a lattice (as the rows of //A//) and returns an (//delta//, //eta//)-reduced basis of the same lattice."
+				"#"
+				"# Uses a modified version of the LLL-algorithm, which has better complexity in terms of the lattice dimension, introduced by Storjohann. See"
+				"\tA. Storjohann Faster Algorithms for Integer Lattice Basis Reduction. Technical Report 249. Zurich, Switzerland: Department Informatik, ETH. July 30, 1996."
+				"# @param Matrix<Integer> A\n"
+				"# @param Rational delta optional, default: 1/4 TODO: WTF?\n"
+				"# @param Rational eta optional, default: 1 TODO: WTF?\n"
+				"# @return Matrix<Integer>", &flint::LLL, "lll_flint( $; $=1/4, $=1 )");
+      
+    
   }
 }

@@ -27,33 +27,30 @@
 
 
 namespace polymake { 
-
-
-
   namespace common {
+    namespace flint {
 
+      class FlintMatrix {
+	
+	fmpz_mat_t M;
+	int rows,cols;
+	
+      public: 
+	
+	FlintMatrix( const fmpz_mat_t A );
+	FlintMatrix(const Matrix<Integer> & A);
+	
+	const Matrix<Integer> get_matrix() const;
+	
+	const FlintMatrix hermite_normal_form() const;
+	const FlintMatrix smith_normal_form() const;
+	
+	const FlintMatrix lll_storjohann(const Rational delta , const Rational eta);
+	
+      };
 
-    class FlintMatrix {
-
-      fmpz_mat_t M;
-      int rows,cols;
-
-    public: 
-
-      FlintMatrix( const fmpz_mat_t A );
-      FlintMatrix(const Matrix<Integer> & A);
-      
-      const Matrix<Integer> get_matrix() const;
-
-      const FlintMatrix hermite_normal_form() const;
-      const FlintMatrix smith_normal_form() const;
-
-      const FlintMatrix lll_storjohann(const Rational delta , const Rational eta);
-
-    };
-    
+    }
   }
-
 }
 
 #endif

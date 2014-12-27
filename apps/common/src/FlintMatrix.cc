@@ -28,85 +28,86 @@
 
 namespace polymake { 
   namespace common {
-    
-    FlintMatrix::FlintMatrix( const fmpz_mat_t A ) {
+    namespace flint {
       
-      rows = fmpz_mat_nrows(A);
-      cols = fmpz_mat_ncols(A);
-      fmpz_mat_init_set(M,A);
-    }
-    
-    FlintMatrix::FlintMatrix(const Matrix<Integer> & A) {
-      
-      rows = A.rows();
-      cols = A.cols();
-      
-      fmpz_mat_init(M, rows, cols);
-      
-      for (long i = 0; i < rows; ++i)
-         for (long j = 0; j < cols; ++j)
-           fmpz_set_mpz(fmpz_mat_entry(M,i,j), A(i,j).get_rep());
-      
-    }
-    
-    const Matrix<Integer> FlintMatrix::get_matrix() const {
-      
-      Matrix<Integer> A(rows,cols);
-      
-      for (long i=0; i < rows; ++i) {
-         for (long j=0; j < cols; ++j) {
-            A(i,j) = convert_to<Integer>(*fmpz_mat_entry(M,i,j));
-         }
+      FlintMatrix::FlintMatrix( const fmpz_mat_t A ) {
+	
+	rows = fmpz_mat_nrows(A);
+	cols = fmpz_mat_ncols(A);
+	fmpz_mat_init_set(M,A);
       }
       
-      return A;
-    }
-    
-    
-    const FlintMatrix FlintMatrix::hermite_normal_form() const {
+      FlintMatrix::FlintMatrix(const Matrix<Integer> & A) {
+	
+	rows = A.rows();
+	cols = A.cols();
+	
+	fmpz_mat_init(M, rows, cols);
+	
+	for (long i = 0; i < rows; ++i)
+	  for (long j = 0; j < cols; ++j)
+	    fmpz_set_mpz(fmpz_mat_entry(M,i,j), A(i,j).get_rep());
+	
+      }
       
-      fmpz_mat_t H;
-      fmpz_mat_init(H, rows, cols);
+      const Matrix<Integer> FlintMatrix::get_matrix() const {
+	
+	Matrix<Integer> A(rows,cols);
+	
+	for (long i=0; i < rows; ++i) {
+	  for (long j=0; j < cols; ++j) {
+            A(i,j) = convert_to<Integer>(*fmpz_mat_entry(M,i,j));
+	  }
+	}
+	
+	return A;
+      }
       
-      fmpz_mat_hnf(H,M);
       
-      return FlintMatrix(H);
-    }
-
-    const FlintMatrix FlintMatrix::smith_normal_form() const {
+      const FlintMatrix FlintMatrix::hermite_normal_form() const {
+	
+	fmpz_mat_t H;
+	fmpz_mat_init(H, rows, cols);
+	
+	fmpz_mat_hnf(H,M);
+	
+	return FlintMatrix(H);
+      }
       
-      fmpz_mat_t S;
-      fmpz_mat_init(S, rows, cols);
+      const FlintMatrix FlintMatrix::smith_normal_form() const {
+	
+	fmpz_mat_t S;
+	fmpz_mat_init(S, rows, cols);
+	
+	fmpz_mat_snf(S,M);
+	
+	return FlintMatrix(S);
+      }
       
-      fmpz_mat_snf(S,M);
       
-      return FlintMatrix(S);
-    }
-
-
-
-    const FlintMatrix FlintMatrix::lll_storjohann(const Rational delta , const Rational eta) {
-
-      fmpq_t d;
-      fmpq_t e;
-      fmpq_init(d);
-      fmpq_init(e);
-
-      // TODO type conversion
-      fmpq_set_si(d,convert_to<signed long>(denominator(delta)),convert_to<long>(numerator(delta)));
-      fmpq_set_si(d,convert_to<signed long>(denominator(eta)),convert_to<long>(numerator(eta)));
-
-      fmpz_mat_t H;
-      fmpz_mat_init_set(H, M);
-      fmpz_mat_lll_storjohann(H, d, e);
-
-      fmpq_clear(d);
-      fmpq_clear(e);
       
-      return FlintMatrix(H);
-    }
-    
+      const FlintMatrix FlintMatrix::lll_storjohann(const Rational delta , const Rational eta) {
+	
+	fmpq_t d;
+	fmpq_t e;
+	fmpq_init(d);
+	fmpq_init(e);
+	
+	// TODO type conversion
+	fmpq_set_si(d,convert_to<signed long>(denominator(delta)),convert_to<long>(numerator(delta)));
+	fmpq_set_si(d,convert_to<signed long>(denominator(eta)),convert_to<long>(numerator(eta)));
+	
+	fmpz_mat_t H;
+	fmpz_mat_init_set(H, M);
+	fmpz_mat_lll_storjohann(H, d, e);
+	
+	fmpq_clear(d);
+	fmpq_clear(e);
+	
+	return FlintMatrix(H);
+      }
+      
+    }  
   }
-  
 }
-
+  
