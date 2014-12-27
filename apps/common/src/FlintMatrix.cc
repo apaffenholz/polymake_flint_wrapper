@@ -93,9 +93,8 @@ namespace polymake {
         fmpq_init(d);
         fmpq_init(e);
         
-        // TODO type conversion
-        fmpq_set_si(d,convert_to<signed long>(denominator(delta)),convert_to<long>(numerator(delta)));
-        fmpq_set_si(d,convert_to<signed long>(denominator(eta)),convert_to<long>(numerator(eta)));
+        fmpq_set_mpq(d, delta.get_rep());
+        fmpq_set_mpq(d, eta.get_rep());
         
         fmpz_mat_t H;
         fmpz_mat_init_set(H, M);
