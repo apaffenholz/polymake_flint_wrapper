@@ -24,13 +24,13 @@
 
 
 namespace polymake { 
-  namespace common {
+	namespace common {
     namespace flint {
 
-    Matrix<Integer> HermiteNormalForm(const Matrix<Integer> & M );
-    Matrix<Integer> SmithNormalForm(const Matrix<Integer> & M );
+			Matrix<Integer> HermiteNormalForm(const Matrix<Integer> & M );
+			Matrix<Integer> SmithNormalForm(const Matrix<Integer> & M );
     
-    }
+		}
   }
 }
 
