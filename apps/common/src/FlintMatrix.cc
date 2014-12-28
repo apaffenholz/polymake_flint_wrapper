@@ -94,7 +94,7 @@ namespace polymake {
         fmpq_init(e);
         
         fmpq_set_mpq(d, delta.get_rep());
-        fmpq_set_mpq(d, eta.get_rep());
+        fmpq_set_mpq(e, eta.get_rep());
         
         fmpz_mat_t H;
         fmpz_mat_init_set(H, M);
