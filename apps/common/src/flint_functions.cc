@@ -66,15 +66,15 @@ namespace polymake {
     }
       
     UserFunction4perl(  "# @category Linear Algebra\n"
-      "# Computes the unique (row) __Hermite normal form__ of //A//."
+      "# Computes the unique (column) __Hermite normal form__ of //A//."
       "# @param Matrix<Integer> A\n"
       "# @return Matrix<Integer>",
       &flint::HermiteNormalForm, "hermite_normal_form_flint( $ )");
 
     UserFunction4perl(  "# @category Linear Algebra\n"
-      "# Computes the unique (row) __Hermite normal form__ of //A//."
+      "# Computes the unique (column) __Hermite normal form__ of //A//."
       "# @param Matrix<Integer> A\n"
-      "# @return Array<Matrix<Integer> >",
+      "# @return perl::ListReturn (Matrix N, Matrix R) such that M*R=N, R quadratic unimodular.\n",
       &flint::HermiteNormalForm_WithTransform, "hermite_normal_form_with_transform_flint( $ )");
     
     UserFunction4perl(  "# @category Linear Algebra\n"
