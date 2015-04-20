@@ -21,6 +21,7 @@
 
 #include <polymake/client.h>
 #include <polymake/Matrix.h>
+#include <polymake/Array.h>
 #include <polymake/Integer.h>
 #include "flint/fmpz.h"
 #include "flint/fmpz_mat.h"
@@ -36,16 +37,18 @@ namespace polymake {
 	int rows,cols;
 	
       public: 
-	
+
+	FlintMatrix() { rows=0; cols=0; fmpz_mat_init(M, rows, cols); };
 	FlintMatrix( const fmpz_mat_t A );
 	FlintMatrix(const Matrix<Integer> & A);
 	
 	const Matrix<Integer> get_matrix() const;
 	
-	const FlintMatrix hermite_normal_form() const;
-	const FlintMatrix smith_normal_form() const;
+	const FlintMatrix        hermite_normal_form() const;
+	const Array<FlintMatrix> hermite_normal_form_with_transform() const;
+	const FlintMatrix        smith_normal_form() const;
 	
-	const FlintMatrix lll_storjohann(const Rational delta , const Rational eta);
+	const FlintMatrix        lll_storjohann(const Rational delta , const Rational eta);
 	
       };
       

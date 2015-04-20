@@ -30,17 +30,26 @@ namespace polymake {
 
       Matrix<Integer> HermiteNormalForm(const Matrix<Integer> & M ) {
   
-        FlintMatrix FM(M);
+        FlintMatrix FM(T(M));
     
-        return FM.hermite_normal_form().get_matrix();
+        return T(FM.hermite_normal_form().get_matrix());
      }
   
-        
+      perl::ListReturn HermiteNormalForm_WithTransform(const Matrix<Integer> & M ) {
+
+        FlintMatrix FM(T(M));
+	const Array<FlintMatrix> HNF_Flint = FM.hermite_normal_form_with_transform();
+
+	perl::ListReturn HNF;
+	HNF << T(HNF_Flint[0].get_matrix()) << T(HNF_Flint[1].get_matrix());
+	return HNF;
+     }
+      
       Matrix<Integer> SmithNormalForm(const Matrix<Integer> & M ) {
     
-        FlintMatrix FM(M);
+        FlintMatrix FM(T(M));
     
-        return FM.smith_normal_form().get_matrix();
+        return T(FM.smith_normal_form().get_matrix());
       }
       
       
@@ -61,6 +70,12 @@ namespace polymake {
       "# @param Matrix<Integer> A\n"
       "# @return Matrix<Integer>",
       &flint::HermiteNormalForm, "hermite_normal_form_flint( $ )");
+
+    UserFunction4perl(  "# @category Linear Algebra\n"
+      "# Computes the unique (row) __Hermite normal form__ of //A//."
+      "# @param Matrix<Integer> A\n"
+      "# @return Array<Matrix<Integer> >",
+      &flint::HermiteNormalForm_WithTransform, "hermite_normal_form_with_transform_flint( $ )");
     
     UserFunction4perl(  "# @category Linear Algebra\n"
       "# Computes the unique __Smith normal form__ of //A//."

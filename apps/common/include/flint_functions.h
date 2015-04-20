@@ -20,6 +20,7 @@
 
 #include <polymake/client.h>
 #include <polymake/Matrix.h>
+#include <polymake/Array.h>
 #include <polymake/Integer.h>
 
 
@@ -28,6 +29,7 @@ namespace polymake {
     namespace flint {
       
       Matrix<Integer> HermiteNormalForm(const Matrix<Integer> & M );
+      perl::ListReturn HermiteNormalForm_WithTransform(const Matrix<Integer> & M );
       Matrix<Integer> SmithNormalForm(const Matrix<Integer> & M );
       
     }

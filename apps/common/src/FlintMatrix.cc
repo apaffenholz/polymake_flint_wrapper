@@ -18,6 +18,7 @@
 
 #include <polymake/client.h>
 #include <polymake/Matrix.h>
+#include <polymake/Array.h>
 #include <polymake/Integer.h>
 #include <polymake/Rational.h>
 #include <polymake/common/FlintMatrix.h>
@@ -73,6 +74,23 @@ namespace polymake {
         
         return FlintMatrix(H);
       }
+
+      const Array<FlintMatrix> FlintMatrix::hermite_normal_form_with_transform() const {
+	
+        fmpz_mat_t H;
+        fmpz_mat_init(H, rows, cols);
+        fmpz_mat_t U;
+        fmpz_mat_init(U, rows, rows);
+        
+        fmpz_mat_hnf_transform(H,U,M);
+
+	Array<FlintMatrix> HNF(2);
+	HNF[0] = FlintMatrix(H);
+	HNF[1] = FlintMatrix(U);
+        
+        return HNF;
+      }
+
       
       const FlintMatrix FlintMatrix::smith_normal_form() const {
 	
