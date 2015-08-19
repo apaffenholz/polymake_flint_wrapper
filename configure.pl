@@ -1,4 +1,4 @@
-#  Copyright (c) 2014
+#  Copyright (c) 2014-2015
 #  Silke Horn, Andreas Paffenholz (Technische Universitaet Darmstadt, Germany)
 #  http://www.polymake.org
 #
