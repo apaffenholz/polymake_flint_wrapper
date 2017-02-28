@@ -53,7 +53,7 @@ sub proceed {
 #include "flint/fmpz.h"
 int main() {
     fmpz_t  n;
-    return 1;
+    return 0;
 }
 ---
       if ($?==0) {
