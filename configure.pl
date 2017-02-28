@@ -50,9 +50,9 @@ sub proceed {
    } else {
       local $Polymake::Configure::Libs="-lflint $Polymake::Configure::Libs";
       my $error=Polymake::Configure::build_test_program(<<'---');
-#include "flint/fpmz.h"
+#include "flint/fmpz.h"
 int main() {
-    fpmz_t  n;
+    fmpz_t  n;
     return 1;
 }
 ---
