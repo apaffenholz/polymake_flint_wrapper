@@ -40,11 +40,11 @@ sub proceed {
       if (-f "$flint_inc/flint/fmpz.h" && -f "$flint_lib/libflint.$lib_ext" ) {
          $CXXflags="-I$flint_inc";
          $LDflags="-L$flint_lib -Wl,-rpath,$flint_lib";
-      } elsif (-f "$flint_inc/flint/fpmz.h" && -f "$flint_lib/libflint.a" ) {
+      } elsif (-f "$flint_inc/flint/fmpz.h" && -f "$flint_lib/libflint.a" ) {
          $CXXflags="-I$flint_inc";
          $LDflags="-L$flint_lib";
       } else {
-         die "Invalid installation location of flint library: header file flint/fpmz.h and/or library libflint.$lib_ext / libflint.a not found\n";
+         die "Invalid installation location of flint library: header file flint/fmpz.h and/or library libflint.$lib_ext / libflint.a not found\n";
       }
 
    } else {
