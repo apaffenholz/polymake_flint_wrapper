@@ -1,4 +1,4 @@
-#  Copyright (c) 2014-2015
+#  Copyright (c) 2014-2018
 #  Silke Horn, Andreas Paffenholz (Technische Universitaet Darmstadt, Germany)
 #  http://www.polymake.org
 #
@@ -14,7 +14,7 @@
 #-------------------------------------------------------------------------------
 
 
-@make_vars=qw(  CXXflags LDflags Libs );
+@conf_vars=qw( CXXFLAGS LDFLAGS LIBS );
 
 sub allowed_options {
    my ($allowed_options, $allowed_with)=@_;
@@ -38,11 +38,11 @@ sub proceed {
       my $flint_inc="$flint_path/include";
       my $flint_lib="$flint_path/lib";
       if (-f "$flint_inc/flint/fmpz.h" && -f "$flint_lib/libflint.$lib_ext" ) {
-         $CXXflags="-I$flint_inc";
-         $LDflags="-L$flint_lib -Wl,-rpath,$flint_lib";
+         $CXXFLAGS="-I$flint_inc";
+         $LDFLAGS="-L$flint_lib -Wl,-rpath,$flint_lib";
       } elsif (-f "$flint_inc/flint/fmpz.h" && -f "$flint_lib/libflint.a" ) {
-         $CXXflags="-I$flint_inc";
-         $LDflags="-L$flint_lib";
+         $CXXFLAGS="-I$flint_inc";
+         $LDFLAGS="-L$flint_lib";
       } else {
          die "Invalid installation location of flint library: header file flint/fmpz.h and/or library libflint.$lib_ext / libflint.a not found\n";
       }
@@ -72,6 +72,6 @@ int main() {
       }
    }
 
-   $Libs="-lflint";
+   $LIBS="-lflint";
    return $flint_path;
 }
